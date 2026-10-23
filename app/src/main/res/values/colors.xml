@@ -1,0 +1,9 @@
+<resources>
+    <color name="ui_surface">#F5F0DF</color>
+    <color name="ui_secondary">#BBC9AE</color>
+    <color name="ui_dark">#344B46</color>
+    <color name="ui_accent">#D59B7A</color>
+    <color name="ui_heart">#C72E48</color>
+    <color name="ui_terracotta">#C58B76</color>
+    <color name="ui_terracotta_dark">#453D3A</color>
+</resources>

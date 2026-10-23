@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Cubbl</string>
+    <string name="tagline">Stack high. Stay steady.</string>
+    <string name="action_start">Start</string>
+    <string name="settings_title">Settings</string>
+    <string name="settings_sound">Sound</string>
+    <string name="settings_vibration">Vibration</string>
+    <string name="action_done">Done</string>
+    <string name="action_pause">Pause</string>
+    <string name="action_resume">Keep stacking</string>
+    <string name="action_restart">Restart run</string>
+    <string name="action_menu">Main menu</string>
+    <string name="action_play_again">Stack again</string>
+    <string name="action_close">Close game</string>
+    <string name="paused_title">Paused</string>
+    <string name="game_over_title">Run over!</string>
+    <string name="game_over_collapse">Tower down!</string>
+    <string name="game_over_lives">Out of lives!</string>
+    <string name="hud_score">Score</string>
+    <string name="hud_score_value">%1$d</string>
+    <string name="hud_lives">Lives</string>
+    <string name="hud_streak">Streak %1$d</string>
+    <string name="score">Score %1$d</string>
+    <string name="best">Best %1$d</string>
+    <string name="score_record">Score %1$d\nBest %2$d</string>
+    <string name="lives">Lives %1$d / 3</string>
+    <string name="feedback_perfect">Perfect!</string>
+    <string name="feedback_good">Nice drop!</string>
+    <string name="feedback_bad">Close call!</string>
+    <string name="feedback_miss">Miss!</string>
+    <string name="feedback_collapse">Timber!</string>
+    <string name="tutorial">Tap to drop. Aim for the center.\nKeep it steady as you climb.</string>
+    <string name="game_area_description">Game area. Tap to drop a building.</string>
+    <string name="display_error_title">Hit a snag!</string>
+    <string name="display_error_message">Close Cubbl and reopen it to get back in the game.</string>
+</resources>

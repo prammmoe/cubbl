@@ -1,0 +1,14 @@
+{
+  "license": "CC0-1.0",
+  "processed_format": "44100 Hz mono PCM16 WAV, peak normalized to 0.85",
+  "sources": {
+    "kenney/Audio/impactMining_000.ogg": "36b4ea107222d073c67ca64dde26944975609202d5090b2f2021213c1a7e35cd",
+    "kenney/Audio/impactWood_heavy_000.ogg": "15ff82332f342c30e469215539e1cc57e11b221aa2cf7e11e811d313a9927f3d",
+    "kenney/Audio/impactSoft_heavy_000.ogg": "49e7ca88743fca974bb8676ea138b751cfd8f9033b5e7af8736c2a215d6edbc1",
+    "rock_break.ogg": "b645f35d21194e7855dd4a5405b1e8e6bec070731b92df6abcb202676b8e9f2e"
+  },
+  "ffmpeg_filters": {
+    "miss": "[0:a]volume=0.85[a];[1:a]volume=0.40[b];[a][b]amix=inputs=2:normalize=0,highpass=f=35,lowpass=f=8000,apad,atrim=duration=0.50,afade=t=in:d=0.003,afade=t=out:st=0.40:d=0.10",
+    "collapse": "[0:a]volume=0.65,adelay=70[a];[1:a]asplit=3[r0][r1][r2];[r0]asetrate=20000,aresample=44100,volume=0.85[b];[r1]asetrate=21500,aresample=44100,volume=0.60,adelay=340[c];[r2]asetrate=18000,aresample=44100,volume=0.35,adelay=780[d];[2:a]volume=0.60,adelay=140[e];[a][b][c][d][e]amix=inputs=5:normalize=0,highpass=f=35,lowpass=f=8500,apad,atrim=duration=1.4,afade=t=in:d=0.004,afade=t=out:st=1.12:d=0.28"
+  }
+}
