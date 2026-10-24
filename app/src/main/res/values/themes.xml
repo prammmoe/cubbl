@@ -1,11 +1,14 @@
 <resources>
-    <style name="Theme.Cubbl" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.Cubbl" parent="Theme.Cubbl.Base" />
+    <style name="Theme.Cubbl.Base" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:fontFamily">@font/baloo_2</item>
         <item name="fontFamily">@font/baloo_2</item>
         <item name="colorPrimary">@color/ui_dark</item>
         <item name="colorSecondary">@color/ui_accent</item>
         <item name="android:windowLightStatusBar">true</item>
-        <item name="android:windowBackground">#C4E0E8</item>
+        <item name="android:windowBackground">@drawable/launch_city_background</item>
+        <item name="android:statusBarColor">@color/launch_sunset</item>
+        <item name="android:navigationBarColor">@color/launch_sunset</item>
         <item name="android:colorAccent">@color/ui_dark</item>
     </style>
     <style name="ThemeOverlay.Cubbl.ArcadeDialog" parent="ThemeOverlay.AppCompat.Dialog.Alert">

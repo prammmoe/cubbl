@@ -12,6 +12,7 @@ import android.view.WindowInsets
 import android.view.WindowInsetsController
 import androidx.appcompat.app.AlertDialog
 import android.widget.FrameLayout
+import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
 import com.google.androidgamesdk.GameActivity
 
@@ -21,6 +22,8 @@ class MainActivity : GameActivity() {
     }
     private external fun nativeCommand(action: Int)
     private external fun nativeSnapshot(): LongArray
+    private external fun nativeHasRenderedFrame(): Boolean
+    private var launchCity: ImageView? = null
     private lateinit var root: GameOverlay
     private lateinit var preferences: PlayerPreferences
     private lateinit var audio: GameAudio
@@ -35,9 +38,12 @@ class MainActivity : GameActivity() {
     private var releasePending = false
     private var settingsDialog: AlertDialog? = null
     private var restoreSettings = false
+    private var creditsOpen = false
     private val backCallback = object : OnBackPressedCallback(false) {
         override fun handleOnBackPressed() {
-            if (phase == PAUSED || phase == GAME_OVER) nativeCommand(MENU)
+            if (creditsOpen) {
+                showCredits(false)
+            } else if (phase == PAUSED || phase == GAME_OVER) nativeCommand(MENU)
             else nativeCommand(PAUSE)
         }
     }
@@ -50,6 +56,10 @@ class MainActivity : GameActivity() {
                 currentSnapshot = snapshot
                 update(snapshot)
             }
+            if (launchCity != null && (nativeHasRenderedFrame() || failed)) {
+                (launchCity?.parent as? FrameLayout)?.removeView(launchCity)
+                launchCity = null
+            }
             handler.postDelayed(this, 50)
         }
     }
@@ -59,7 +69,8 @@ class MainActivity : GameActivity() {
         preferences = PlayerPreferences(getSharedPreferences("cubbl", MODE_PRIVATE))
         audio = GameAudio(this)
         lastSequence = nativeSnapshot().getOrElse(6) { 0L }
-        root = GameOverlay(this, ::onUiAction, ::showSettings, ::finish).apply {
+        creditsOpen = savedInstanceState?.getBoolean("credits_open") == true
+        root = GameOverlay(this, ::onUiAction, ::showSettings, ::finish, onCredits = ::showCredits).apply {
             setOnApplyWindowInsetsListener { view, insets ->
                 val safe = insets.getInsets(WindowInsets.Type.systemBars() or WindowInsets.Type.displayCutout())
                 view.setPadding(dp(20) + safe.left, dp(20) + safe.top, dp(20) + safe.right, dp(24) + safe.bottom)
@@ -67,6 +78,16 @@ class MainActivity : GameActivity() {
             }
         }
         addContentView(root, FrameLayout.LayoutParams(-1, -1))
+        launchCity = ImageView(this).apply {
+            tag = "launch_city"
+            setImageResource(R.drawable.launch_city)
+            scaleType = ImageView.ScaleType.CENTER_CROP
+            isClickable = true
+            importantForAccessibility = android.view.View.IMPORTANT_FOR_ACCESSIBILITY_NO
+        }.also { addContentView(it, FrameLayout.LayoutParams(-1, -1)) }
+        if (Build.VERSION.SDK_INT >= 31) {
+            splashScreen.setOnExitAnimationListener { it.remove() }
+        }
         onBackPressedDispatcher.addCallback(this, backCallback)
         renderUi()
         root.requestApplyInsets()
@@ -76,6 +97,7 @@ class MainActivity : GameActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putBoolean("settings_open", settingsDialog?.isShowing == true || restoreSettings)
+        outState.putBoolean("credits_open", creditsOpen)
         super.onSaveInstanceState(outState)
     }
 
@@ -160,10 +182,10 @@ class MainActivity : GameActivity() {
             if (vibrator.hasVibrator()) vibrator.vibrate(VibrationEffect.createOneShot(if (sound == GameAudio.MISS || sound == GameAudio.COLLAPSE) 45 else 18, VibrationEffect.DEFAULT_AMPLITUDE))
         }
     }
-    private fun overlayState() = GameOverlayState(phase, score, preferences.best, lives, combo, reason, failed, preferences.tutorialDone)
+    private fun overlayState() = GameOverlayState(phase, score, preferences.best, lives, combo, reason, failed, preferences.tutorialDone, creditsOpen)
 
     private fun renderUi() {
-        backCallback.isEnabled = phase != MENU_PHASE && phase != -1 && !failed
+        backCallback.isEnabled = creditsOpen || (phase != MENU_PHASE && phase != -1 && !failed)
         root.keepScreenOn = (phase in SWINGING..4 || phase == COLLAPSING) && !failed
         root.render(overlayState())
     }
@@ -189,11 +211,18 @@ class MainActivity : GameActivity() {
                 } else preferences.toggleVibration()
             }
             .setPositiveButton(R.string.action_done, null)
+            .setNeutralButton(R.string.credits_title) { _, _ -> showCredits(true) }
             .create().apply {
                 setOnDismissListener { settingsDialog = null }
                 show()
                 root.styleSettings(this)
             }
+    }
+    private fun showCredits(open: Boolean) {
+        settingsDialog?.dismiss()
+        creditsOpen = open
+        renderUi()
+        if (!open) showSettings()
     }
     private fun dp(value: Int) = (value * resources.displayMetrics.density).toInt()
 }

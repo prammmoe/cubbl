@@ -1,4 +1,5 @@
 <resources>
+    <color name="launch_sunset">#EE9A75</color>
     <color name="ui_surface">#F5F0DF</color>
     <color name="ui_secondary">#BBC9AE</color>
     <color name="ui_dark">#344B46</color>

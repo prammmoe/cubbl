@@ -48,6 +48,8 @@ class GameSceneSnapshotTest {
 
     @Test fun home() = scene("home", GameOverlayState(best = 2400))
 
+    @Test fun credits() = scene("home", GameOverlayState(creditsOpen = true))
+
     @Test fun homeStartPressed() = scene("home", GameOverlayState(best = 2400), "Start")
 
     @Test fun pressedButtonHidesEdgeAndReleaseRestoresIt() {

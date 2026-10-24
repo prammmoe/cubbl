@@ -52,6 +52,7 @@ internal class ArcadeIcon(private val symbol: Symbol, color: Int, private val fi
     }
     override fun setAlpha(alpha: Int) { paint.alpha = alpha; invalidateSelf() }
     override fun setColorFilter(colorFilter: ColorFilter?) { paint.colorFilter = colorFilter; invalidateSelf() }
+    @Deprecated("Deprecated in Java")
     @Suppress("DEPRECATION")
     override fun getOpacity() = PixelFormat.TRANSLUCENT
     override fun getIntrinsicWidth() = 24

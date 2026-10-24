@@ -36,14 +36,16 @@ internal data class GameOverlayState(
     val combo: Int = 0,
     val reason: Int = 0,
     val failed: Boolean = false,
-    val tutorialDone: Boolean = false
+    val tutorialDone: Boolean = false,
+    val creditsOpen: Boolean = false
 )
 
 internal class GameOverlay(
     context: Context,
     private val onAction: (Int) -> Unit,
     private val onSettings: () -> Unit,
-    private val onClose: () -> Unit
+    private val onClose: () -> Unit,
+    private val onCredits: (Boolean) -> Unit = {}
 ) : FrameLayout(context) {
     private val dark = context.getColor(R.color.ui_dark)
     private val ivory = context.getColor(R.color.ui_surface)
@@ -96,6 +98,30 @@ internal class GameOverlay(
             panel.addView(text(getString(R.string.display_error_title), 26))
             panel.addView(text(getString(R.string.display_error_message), 17))
             panel.addView(button(getString(R.string.action_close)) { onClose() })
+            return
+        }
+        if (state.creditsOpen && (phase == MENU_PHASE || phase == -1)) {
+            val panel = panel()
+            panel.addView(text(getString(R.string.credits_title), 34))
+            panel.addView(text(getString(R.string.credits_role), 18))
+            panel.addView(text(getString(R.string.credits_developer), 32))
+            panel.addView(text(getString(R.string.credits_website), 18).apply {
+                autoLinkMask = android.text.util.Linkify.WEB_URLS
+                setText(getString(R.string.credits_website))
+                movementMethod = android.text.method.LinkMovementMethod.getInstance()
+                setLinkTextColor(dark)
+                minHeight = dp(48)
+            })
+            panel.addView(button(getString(R.string.credits_licenses)) {
+                val notices = listOf("Baloo2-OFL.txt", "Box2D-MIT.txt", "Audio-Credits.txt", "Kenney-Impact-Sounds-License.txt")
+                    .joinToString("\n\n") { name -> context.assets.open("licenses/$name").bufferedReader().use { it.readText() } }
+                AlertDialog.Builder(android.view.ContextThemeWrapper(context, R.style.ThemeOverlay_Cubbl_ArcadeDialog))
+                    .setTitle(R.string.credits_licenses)
+                    .setMessage(notices)
+                    .setPositiveButton(R.string.action_done, null)
+                    .create().apply { show(); styleSettings(this) }
+            })
+            panel.addView(button(getString(R.string.action_back), primary = true) { onCredits(false) })
             return
         }
         when (phase) {

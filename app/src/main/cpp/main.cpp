@@ -3,6 +3,7 @@
 #include <android/log.h>
 #include <game-activity/native_app_glue/android_native_app_glue.h>
 #include <array>
+#include <atomic>
 #include <chrono>
 #include <deque>
 #include <memory>
@@ -17,6 +18,7 @@ CameraFrame camera;
 RunAtmosphere atmosphere(static_cast<uint32_t>(std::chrono::steady_clock::now().time_since_epoch().count()));
 std::mutex bridgeMutex;
 std::deque<GameAction> commands;
+std::atomic<bool> hasRenderedFrame{false};
 // JNI snapshot: phase, score, combo, lives, placements, feedback, event sequence, renderer error, game-over reason.
 std::array<jlong,9> snapshot={0,0,0,3,0,-1,0,0,0};
 ALooper* gameLooper=nullptr;
@@ -41,8 +43,9 @@ void handleCommand(android_app* app,int32_t command) {
 #endif
  switch(command){
  case APP_CMD_INIT_WINDOW:
+  hasRenderedFrame=false;
   if(app->window){r.renderer.reset();r.renderer=std::make_unique<Renderer>(app,camera,atmosphere);r.error=!r.renderer->ready();r.recoveryAttempts=0;}break;
- case APP_CMD_TERM_WINDOW:r.renderer.reset();game.dispatch(GameAction::Pause);break;
+ case APP_CMD_TERM_WINDOW:hasRenderedFrame=false;r.renderer.reset();game.dispatch(GameAction::Pause);break;
  case APP_CMD_GAINED_FOCUS:r.focused=true;break;
  case APP_CMD_RESUME:r.resumed=true;break;
  case APP_CMD_LOST_FOCUS:r.focused=false;game.dispatch(GameAction::Pause);break;
@@ -66,7 +69,11 @@ extern "C" JNIEXPORT jlongArray JNICALL Java_com_example_cubbl_MainActivity_nati
  {std::lock_guard<std::mutex> lock(bridgeMutex);copy=snapshot;}
  auto array=env->NewLongArray(copy.size());if(array)env->SetLongArrayRegion(array,0,copy.size(),copy.data());return array;
 }
+extern "C" JNIEXPORT jboolean JNICALL Java_com_example_cubbl_MainActivity_nativeHasRenderedFrame(JNIEnv*,jobject){
+ return hasRenderedFrame.load();
+}
 extern "C" void android_main(android_app* app){
+ hasRenderedFrame=false;
  Runtime runtime;app->userData=&runtime;app->onAppCmd=handleCommand;
  // Android Views own input; native glue must not consume Back or queue unused touch events.
  android_app_set_key_event_filter(app,[](const GameActivityKeyEvent*){return false;});
@@ -117,7 +124,7 @@ extern "C" void android_main(android_app* app){
     game.dispatch(GameAction::Pause);runtime.renderer.reset();
     if(++runtime.recoveryAttempts<=2 && app->window){runtime.renderer=std::make_unique<Renderer>(app,camera,atmosphere);runtime.error=!runtime.renderer->ready();}
     else runtime.error=true;
-   }else runtime.recoveryAttempts=0;
+   }else {runtime.recoveryAttempts=0;hasRenderedFrame=true;}
   }
   runtime.dirty=false;publish(runtime);
  }

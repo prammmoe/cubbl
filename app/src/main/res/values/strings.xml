@@ -2,6 +2,12 @@
     <string name="app_name">Cubbl</string>
     <string name="tagline">Stack high. Stay steady.</string>
     <string name="action_start">Start</string>
+    <string name="credits_title">Credits</string>
+    <string name="action_back">Back</string>
+    <string name="credits_role">Developer</string>
+    <string name="credits_developer">Prammmoe</string>
+    <string name="credits_website">https://prammmoe.space/</string>
+    <string name="credits_licenses">Asset licenses</string>
     <string name="settings_title">Settings</string>
     <string name="settings_sound">Sound</string>
     <string name="settings_vibration">Vibration</string>
