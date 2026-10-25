@@ -1,4 +1,4 @@
-package com.example.cubbl
+package com.prammmoelabs.cubbl
 
 import android.graphics.Color
 import android.os.Build

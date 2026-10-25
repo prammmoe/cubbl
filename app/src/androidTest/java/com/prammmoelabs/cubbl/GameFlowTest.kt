@@ -1,4 +1,4 @@
-package com.example.cubbl
+package com.prammmoelabs.cubbl
 
 import android.content.Context
 import androidx.test.core.app.ActivityScenario

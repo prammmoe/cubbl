@@ -1,4 +1,4 @@
-package com.example.cubbl
+package com.prammmoelabs.cubbl
 
 import android.graphics.Bitmap
 import android.graphics.Canvas

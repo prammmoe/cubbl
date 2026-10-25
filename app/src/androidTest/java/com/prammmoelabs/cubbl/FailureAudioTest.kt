@@ -1,4 +1,4 @@
-package com.example.cubbl
+package com.prammmoelabs.cubbl
 
 import android.media.AudioAttributes
 import android.media.MediaMetadataRetriever

@@ -55,7 +55,7 @@ void handleCommand(android_app* app,int32_t command) {
  }
 }
 }
-extern "C" JNIEXPORT void JNICALL Java_com_example_cubbl_MainActivity_nativeCommand(JNIEnv*,jobject,jint action){
+extern "C" JNIEXPORT void JNICALL Java_com_prammmoelabs_cubbl_MainActivity_nativeCommand(JNIEnv*,jobject,jint action){
  if(action<0||action>5)return;
 #ifndef NDEBUG
  __android_log_print(ANDROID_LOG_DEBUG,"Cubbl","UI action=%d",action);
@@ -64,12 +64,12 @@ extern "C" JNIEXPORT void JNICALL Java_com_example_cubbl_MainActivity_nativeComm
  if(commands.size()<32)commands.push_back(static_cast<GameAction>(action));
  if(gameLooper)ALooper_wake(gameLooper);
 }
-extern "C" JNIEXPORT jlongArray JNICALL Java_com_example_cubbl_MainActivity_nativeSnapshot(JNIEnv* env,jobject){
+extern "C" JNIEXPORT jlongArray JNICALL Java_com_prammmoelabs_cubbl_MainActivity_nativeSnapshot(JNIEnv* env,jobject){
  std::array<jlong,9> copy;
  {std::lock_guard<std::mutex> lock(bridgeMutex);copy=snapshot;}
  auto array=env->NewLongArray(copy.size());if(array)env->SetLongArrayRegion(array,0,copy.size(),copy.data());return array;
 }
-extern "C" JNIEXPORT jboolean JNICALL Java_com_example_cubbl_MainActivity_nativeHasRenderedFrame(JNIEnv*,jobject){
+extern "C" JNIEXPORT jboolean JNICALL Java_com_prammmoelabs_cubbl_MainActivity_nativeHasRenderedFrame(JNIEnv*,jobject){
  return hasRenderedFrame.load();
 }
 extern "C" void android_main(android_app* app){

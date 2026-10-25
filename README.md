@@ -16,6 +16,8 @@ Stack above a soft city skyline, from bright mornings to glowing nights. Changin
 
 Play offline on Android 11 and later. Pause when you need a break, then come back for another shot at your personal best.
 
+Adjust sound and vibration in Settings. Open **Settings → Credits** to find the developer, [Prammmoe](https://prammmoe.space/), and the bundled asset licenses.
+
 ## Take a look
 
 | Home | Tutorial | Gameplay |
@@ -25,3 +27,7 @@ Play offline on Android 11 and later. Pause when you need a break, then come bac
 | Streak | Pause | Game over |
 | :---: | :---: | :---: |
 | <img src="docs/screenshots/readme/streak.png" width="220" alt="A Perfect landing starts a streak"> | <img src="docs/screenshots/readme/paused.png" width="220" alt="Take a breather and keep stacking when you are ready"> | <img src="docs/screenshots/readme/game-over.png" width="220" alt="A fallen tower and a new score to beat"> |
+
+| Settings | Credits |
+| :---: | :---: |
+| <img src="docs/screenshots/readme/settings.png" width="220" alt="Sound and vibration settings with access to Credits"> | <img src="docs/screenshots/readme/credits.png" width="220" alt="Prammmoe developer credits, website, asset licenses and Back button"> |

@@ -1,4 +1,4 @@
-package com.example.cubbl
+package com.prammmoelabs.cubbl
 
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView

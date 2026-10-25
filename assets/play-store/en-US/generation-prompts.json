@@ -1,0 +1,49 @@
+{
+  "tool": "built-in image_gen",
+  "jobs": [
+    {
+      "key": "feature-01",
+      "refs": [
+        "docs/screenshots/readme/gameplay.png",
+        "assets/icon/cubbl-icon-master.png"
+      ],
+      "prompt": "Landscape feature graphic, exact aspect 1024:500, preferably 2048x1000. Large readable wordmark 'Cubbl' on left, headline 'Stack high. Stay steady.' underneath. Right side: charming tall precarious tower of the actual pastel box-shaped houses shown in reference screenshot above a canal city. Warm sunset cream background, editorial composition, generous margins, crisp artwork. No phone, no UI HUD. This is illustrated key art matching the real game."
+    },
+    {
+      "key": "feature-02",
+      "refs": [
+        "docs/screenshots/readme/gameplay.png",
+        "assets/icon/cubbl-icon-master.png"
+      ],
+      "prompt": "Landscape feature graphic, exact aspect 1024:500, preferably 2048x1000. Distinct blue-sky alternative: large 'Cubbl' and 'One more perfect drop.' on left, a suspended teal house with purple flat roof and thin crane cable hovering over a stack of colorful houses on right, pastel city silhouette and round sun. Reproduce the actual low-poly visual vocabulary of the gameplay reference. No phone, no HUD. Main text within generous safe margins."
+    },
+    {
+      "key": "phone-01",
+      "refs": [
+        "docs/screenshots/readme/gameplay.png"
+      ],
+      "prompt": "Portrait 9:16 marketing screenshot poster, 1080x1920 or 2160x3840. Exact heading 'Stack high.' on first line and 'Stay steady.' on second line at top, subline 'Every drop matters.' Large front-facing unbranded Android phone mockup below, thin dark bezel and rounded corners. INSERT THE PROVIDED GAMEPLAY SCREENSHOT UNCHANGED as the screen image: preserve actual game UI, score, hearts, hanging house, skyline and tower, no invented elements. Screen centered, about 75 percent of canvas width. Cream background with subtle sage geometry and soft shadow. Single cohesive professional app marketing composition, large clear typography."
+    },
+    {
+      "key": "phone-02",
+      "refs": [
+        "docs/screenshots/readme/streak.png"
+      ],
+      "prompt": "Portrait 9:16 marketing screenshot poster, 1080x1920 or 2160x3840. Exact top headline 'Make it perfect.' and subline 'Build your streak.' Large front-facing unbranded Android phone mockup below, thin dark bezel rounded corners. INSERT THE PROVIDED STREAK GAMEPLAY SCREENSHOT UNCHANGED as screen image: preserve actual UI and its 'Streak 2' and 'Perfect!' text, score 230, hearts, tower and hanging house. No invented gameplay or decorative UI. Soft pale sage background, cream and muted peach accent, dark forest rounded typography, soft phone shadow. Match a friendly pastel game campaign."
+    },
+    {
+      "key": "phone-03",
+      "refs": [
+        "docs/screenshots/readme/home.png"
+      ],
+      "prompt": "Portrait 9:16 marketing screenshot poster, 1080x1920 or 2160x3840. Exact top headline 'Your next tower awaits.' and subline 'Start stacking with Cubbl.' Large front-facing unbranded Android phone mockup beneath, thin dark bezel rounded corners. INSERT PROVIDED HOME SCREENSHOT UNCHANGED as screen image preserving Cubbl title, Start button, all real UI and sunset city. No invented gameplay. Warm pale peach background and restrained cream geometry with dark forest rounded typography, soft shadow. Phone about 75 percent canvas width, title readable and generous top safe margin."
+    },
+    {
+      "key": "phone-04",
+      "refs": [
+        "docs/screenshots/readme/game-over.png"
+      ],
+      "prompt": "Portrait 9:16 marketing screenshot poster, 1080x1920 or 2160x3840. Exact top headline 'Chase your best.' and subline 'One more try. One higher tower.' Large front-facing unbranded Android phone mockup beneath, thin dark bezel rounded corners. INSERT PROVIDED GAME OVER SCREENSHOT UNCHANGED as the screen: preserve actual 'Run over!', 'Tower down!', Score 1260, Best 2400 and buttons and fallen houses. No invented gameplay. Muted sky blue background, cream sun disc subtly behind phone, dark forest rounded typography, soft shadow. Cohesive pastel campaign, generous margins."
+    }
+  ]
+}

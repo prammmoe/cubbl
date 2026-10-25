@@ -11,13 +11,13 @@ val releaseSigning = Properties().apply {
 }
 
 android {
-    namespace = "com.example.cubbl"
+    namespace = "com.prammmoelabs.cubbl"
     compileSdk {
         version = release(37)
     }
 
     defaultConfig {
-        applicationId = "com.example.cubbl"
+        applicationId = "com.prammmoelabs.cubbl"
         minSdk = 30
         targetSdk = 37
         versionCode = 1
